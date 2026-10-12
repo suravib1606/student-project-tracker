@@ -1,5 +1,278 @@
-<!doctype html>
+```html
+<!DOCTYPE html>
 <html lang="en">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Workshop readiness</title></head>
-<body><main><h1>Student Project Tracker</h1><p>Readiness check passed. We will build the interface in Session 1.</p></main></body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Student Project Tracker</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f6f9;
+            color: #243047;
+            line-height: 1.6;
+        }
+
+        header {
+            background: #173b70;
+            color: white;
+            padding: 24px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        main {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        section {
+            background: white;
+            margin-bottom: 24px;
+            padding: 24px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        }
+
+        h2 {
+            margin-top: 0;
+            color: #173b70;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        .form-field {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 11px;
+            border: 1px solid #cbd3df;
+            border-radius: 6px;
+            font: inherit;
+        }
+
+        input:focus,
+        select:focus {
+            outline: 2px solid #7ba7ed;
+            outline-offset: 1px;
+        }
+
+        .actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 11px 18px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font: inherit;
+            font-weight: bold;
+        }
+
+        .primary-button {
+            background: #2459a9;
+            color: white;
+        }
+
+        .secondary-button {
+            background: #e7ebf2;
+            color: #243047;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        th,
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #e1e6ee;
+        }
+
+        th {
+            background: #edf2f9;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 3px 9px;
+            border-radius: 12px;
+            background: #e4edff;
+            color: #173b70;
+        }
+
+        .readiness {
+            border-left: 4px solid #29845b;
+        }
+
+        @media (max-width: 600px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            main {
+                margin-top: 18px;
+                padding: 0 12px;
+            }
+
+            section {
+                padding: 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Student Project Tracker</h1>
+        <p>Plan your work. Track your progress. Meet your deadlines.</p>
+    </header>
+
+    <main>
+        <section aria-labelledby="intro-heading">
+            <h2 id="intro-heading">Welcome to Your Project Workspace</h2>
+
+            <p>
+                Student Project Tracker helps you organize academic projects,
+                monitor their progress, and keep track of important deadlines.
+                Use the form below to record a project and view your project
+                details in one place.
+            </p>
+        </section>
+
+        <section aria-labelledby="form-heading">
+            <h2 id="form-heading">Add a Project</h2>
+
+            <form id="project-form">
+                <div class="form-grid">
+                    <div class="form-field">
+                        <label for="project-name">Project Name</label>
+                        <input
+                            type="text"
+                            id="project-name"
+                            name="projectName"
+                            placeholder="Enter project name"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-field">
+                        <label for="course">Subject / Course</label>
+                        <input
+                            type="text"
+                            id="course"
+                            name="course"
+                            placeholder="Enter subject or course"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-field">
+                        <label for="project-status">Project Status</label>
+                        <select id="project-status" name="status" required>
+                            <option value="Not Started">Not Started</option>
+                            <option value="In Progress">In Progress</option>
+                            <option value="Completed">Completed</option>
+                        </select>
+                    </div>
+
+                    <div class="form-field">
+                        <label for="due-date">Due Date</label>
+                        <input
+                            type="date"
+                            id="due-date"
+                            name="dueDate"
+                            required
+                        >
+                    </div>
+                </div>
+
+                <div class="actions">
+                    <button type="submit" class="primary-button">
+                        Add Project
+                    </button>
+
+                    <button
+                        type="reset"
+                        class="secondary-button"
+                    >
+                        Clear Form
+                    </button>
+                </div>
+            </form>
+        </section>
+
+        <section aria-labelledby="projects-heading">
+            <h2 id="projects-heading">My Projects</h2>
+
+            <p>
+                Projects you add will be displayed in the table below
+                once project-saving functionality is implemented.
+            </p>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th scope="col">Project Name</th>
+                            <th scope="col">Subject / Course</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Due Date</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="project-list">
+                        <tr id="empty-state">
+                            <td colspan="4">
+                                No projects have been added yet.
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="readiness" aria-labelledby="readiness-heading">
+            <h2 id="readiness-heading">Interface Readiness</h2>
+            <p>
+                The initial interface is ready. The project form, table,
+                labels, and responsive layout are in place.
+            </p>
+        </section>
+    </main>
+</body>
 </html>
+```
