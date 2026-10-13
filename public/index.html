@@ -3,276 +3,246 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Project Tracker</title>
 
     <style>
         * {
             box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
         }
 
         body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #f4f6f9;
-            color: #243047;
-            line-height: 1.6;
+            background: #f4f6fb;
+            color: #222;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: auto;
         }
 
         header {
-            background: #173b70;
-            color: white;
-            padding: 24px;
-            text-align: center;
-        }
-
-        header h1 {
-            margin: 0;
-        }
-
-        main {
-            max-width: 1000px;
-            margin: 30px auto;
-            padding: 0 20px;
-        }
-
-        section {
-            background: white;
-            margin-bottom: 24px;
-            padding: 24px;
-            border-radius: 10px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-        }
-
-        h2 {
-            margin-top: 0;
-            color: #173b70;
-        }
-
-        .form-grid {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 18px;
-        }
-
-        .form-field {
             display: flex;
-            flex-direction: column;
-            gap: 6px;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            color: #243b64;
+            margin-bottom: 8px;
+        }
+
+        header p {
+            color: #666;
+        }
+
+        button {
+            background: #3157d5;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 12px 18px;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        button:hover {
+            background: #2343ae;
+        }
+
+        .form-card,
+        .project-card {
+            background: white;
+            padding: 22px;
+            border-radius: 10px;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.07);
+            margin-bottom: 22px;
+        }
+
+        .form-card h2,
+        .projects-heading {
+            margin-bottom: 18px;
+            color: #243b64;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
         }
 
         label {
+            display: block;
+            margin-bottom: 7px;
             font-weight: bold;
         }
 
         input,
         select {
             width: 100%;
-            padding: 11px;
-            border: 1px solid #cbd3df;
-            border-radius: 6px;
-            font: inherit;
-        }
-
-        input:focus,
-        select:focus {
-            outline: 2px solid #7ba7ed;
-            outline-offset: 1px;
-        }
-
-        .actions {
-            display: flex;
-            gap: 12px;
-            margin-top: 20px;
-            flex-wrap: wrap;
-        }
-
-        button {
-            padding: 11px 18px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font: inherit;
-            font-weight: bold;
-        }
-
-        .primary-button {
-            background: #2459a9;
-            color: white;
-        }
-
-        .secondary-button {
-            background: #e7ebf2;
-            color: #243047;
-        }
-
-        .table-wrapper {
-            overflow-x: auto;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            text-align: left;
-        }
-
-        th,
-        td {
             padding: 12px;
-            border-bottom: 1px solid #e1e6ee;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 15px;
+            background: white;
         }
 
-        th {
-            background: #edf2f9;
+        .form-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .cancel-button {
+            background: #777;
+        }
+
+        .cancel-button:hover {
+            background: #555;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        #message {
+            margin-top: 12px;
+            color: #217a3c;
+        }
+
+        #empty-state {
+            background: white;
+            text-align: center;
+            padding: 35px 20px;
+            border-radius: 10px;
+            color: #666;
+            border: 1px dashed #bbb;
+        }
+
+        #project-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 18px;
+        }
+
+        .project-card {
+            margin-bottom: 0;
+        }
+
+        .project-card h3 {
+            color: #243b64;
+            margin-bottom: 12px;
+            overflow-wrap: anywhere;
         }
 
         .status {
             display: inline-block;
-            padding: 3px 9px;
-            border-radius: 12px;
-            background: #e4edff;
-            color: #173b70;
+            padding: 6px 10px;
+            border-radius: 20px;
+            background: #e8edff;
+            color: #3157d5;
+            font-size: 13px;
+            margin-bottom: 12px;
         }
 
-        .readiness {
-            border-left: 4px solid #29845b;
+        .project-card p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 35px;
+            color: #888;
+            font-size: 13px;
         }
 
         @media (max-width: 600px) {
-            .form-grid {
-                grid-template-columns: 1fr;
-            }
-
-            main {
-                margin-top: 18px;
-                padding: 0 12px;
-            }
-
-            section {
+            body {
                 padding: 18px;
+            }
+
+            header {
+                align-items: flex-start;
             }
         }
     </style>
 </head>
 
 <body>
-    <header>
-        <h1>Student Project Tracker</h1>
-        <p>Plan your work. Track your progress. Meet your deadlines.</p>
-    </header>
+    <div class="container">
 
-    <main>
-        <section aria-labelledby="intro-heading">
-            <h2 id="intro-heading">Welcome to Your Project Workspace</h2>
+        <header>
+            <div>
+                <h1>Student Project Tracker</h1>
+                <p>Manage and track your academic projects in one place.</p>
+            </div>
 
-            <p>
-                Student Project Tracker helps you organize academic projects,
-                monitor their progress, and keep track of important deadlines.
-                Use the form below to record a project and view your project
-                details in one place.
-            </p>
-        </section>
+            <button id="add-project-button" type="button"
+                onclick="document.getElementById('project-form').classList.toggle('hidden')">
+                + Add Project
+            </button>
+        </header>
 
-        <section aria-labelledby="form-heading">
-            <h2 id="form-heading">Add a Project</h2>
+        <section id="project-form" class="form-card hidden">
+            <h2>Add a New Project</h2>
 
-            <form id="project-form">
-                <div class="form-grid">
-                    <div class="form-field">
-                        <label for="project-name">Project Name</label>
-                        <input
-                            type="text"
-                            id="project-name"
-                            name="projectName"
-                            placeholder="Enter project name"
-                            required
-                        >
-                    </div>
-
-                    <div class="form-field">
-                        <label for="course">Subject / Course</label>
-                        <input
-                            type="text"
-                            id="course"
-                            name="course"
-                            placeholder="Enter subject or course"
-                            required
-                        >
-                    </div>
-
-                    <div class="form-field">
-                        <label for="project-status">Project Status</label>
-                        <select id="project-status" name="status" required>
-                            <option value="Not Started">Not Started</option>
-                            <option value="In Progress">In Progress</option>
-                            <option value="Completed">Completed</option>
-                        </select>
-                    </div>
-
-                    <div class="form-field">
-                        <label for="due-date">Due Date</label>
-                        <input
-                            type="date"
-                            id="due-date"
-                            name="dueDate"
-                            required
-                        >
-                    </div>
-                </div>
-
-                <div class="actions">
-                    <button type="submit" class="primary-button">
-                        Add Project
-                    </button>
-
-                    <button
-                        type="reset"
-                        class="secondary-button"
+            <form id="add-project-form">
+                <div class="form-group">
+                    <label for="name">Project Name</label>
+                    <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        placeholder="Enter your project name"
+                        required
                     >
-                        Clear Form
+                </div>
+
+                <div class="form-group">
+                    <label for="status">Project Status</label>
+                    <select id="status" name="status" required>
+                        <option value="Not Started">Not Started</option>
+                        <option value="In Progress">In Progress</option>
+                        <option value="Completed">Completed</option>
+                    </select>
+                </div>
+
+                <div class="form-buttons">
+                    <button type="submit">Save Project</button>
+                    <button type="button" id="cancel-button"
+                        class="cancel-button"
+                        onclick="document.getElementById('project-form').classList.add('hidden')">
+                        Cancel
                     </button>
                 </div>
+
+                <p id="message" role="status" aria-live="polite"></p>
             </form>
         </section>
 
-        <section aria-labelledby="projects-heading">
-            <h2 id="projects-heading">My Projects</h2>
+        <section>
+            <h2 class="projects-heading">My Projects</h2>
 
-            <p>
-                Projects you add will be displayed in the table below
-                once project-saving functionality is implemented.
-            </p>
-
-            <div class="table-wrapper">
-                <table>
-                    <thead>
-                        <tr>
-                            <th scope="col">Project Name</th>
-                            <th scope="col">Subject / Course</th>
-                            <th scope="col">Status</th>
-                            <th scope="col">Due Date</th>
-                        </tr>
-                    </thead>
-
-                    <tbody id="project-list">
-                        <tr id="empty-state">
-                            <td colspan="4">
-                                No projects have been added yet.
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div id="empty-state">
+                <h3>No projects added yet</h3>
+                <p>Click “Add Project” to create your first project.</p>
             </div>
+
+            <div id="project-list"></div>
         </section>
 
-        <section class="readiness" aria-labelledby="readiness-heading">
-            <h2 id="readiness-heading">Interface Readiness</h2>
-            <p>
-                The initial interface is ready. The project form, table,
-                labels, and responsive layout are in place.
-            </p>
-        </section>
-    </main>
+        <footer>
+            Student Project Tracker | Academic Project Management
+        </footer>
+
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
 ```
